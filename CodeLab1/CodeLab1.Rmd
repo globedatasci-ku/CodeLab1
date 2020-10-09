@@ -1,0 +1,145 @@
+---
+title: "Code Lab 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(data.table)
+library(dplyr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## A simple warm-up
+
+I have a data.frame. I want to delete several columns by name, as simply as possible.
+
+*Remember: you can check your work by hitting the "Run Code" button at the top right of the code window.*
+
+```{r warm_up, exercise=TRUE, exercise.lines = 10}
+DF <- data.frame(
+  x=1:10,
+  y=10:1,
+  z=rep(5,10),
+  a=11:20
+)
+```
+
+<div id="warm_up-hint">
+    There are a gajillion ways of doing this. How many can your group come up with?
+</div>
+
+## Problem 1
+
+
+### Re-arranging a dataset
+
+I have generated some occurrence points for three simulated species, but the data are in a weird format. I have a named list with each entry corresponding to a species. Each entry contains three vectors: one with x coordinates, one with y coordinates, and one with the name of the species. I want to combine all of these data into a single data.frame with three columns: "Species", "x", and "y" in that order.
+
+*No cheating! Do this programmatically without editing the `dfList` input! You can edit the code however you like.*
+
+```{r problem_1, exercise=TRUE, exercise.lines = 25}
+# Here is the original format of the data
+dfList <- list(
+  ThunnusThynnus = list(x = c(-97.5, -174.5, 156.5, -172.5, 111.5, -132.5, 142.5, 115.5, 146.5, 
+                              171.5, 151.5, 162.5), 
+                        y = c(86.5, 79.5, 59.5, 77.5, 77.5, 75.5, 58.5, 82.5, 84.5, 74.5, 78.5, 
+                              74.5), 
+                        Species = "ThunnusThynnus"), 
+RanaRana = list(x = c(170.5, -160.5, 150.5, 165.5, 78.5, 74.5, -161.5, -129.5, -134.5, -164.5, 
+                      166.5, -169.5),
+                y = c(86.5, 76.5, 57.5, 70.5, 77.5, 78.5, 74.5, 74.5, 72.5, 80.5, 84.5, 85.5), 
+                Species = "RanaRana"), 
+UpupaEpops = list(x = c(179.5, 149.5, -153.5, 129.5, 158.5, 169.5, 131.5, -147.5, -140.5, 128.5, 
+                        173.5, -172.5), 
+                  y = c(63.5, 57.5, 72.5, 80.5, 50.5, 58.5, 76.5, 72.5, 72.5, 81.5, 58.5, 88.5), 
+                  Species = "UpupaEpops"))
+
+# Here is how I tried to get what I want.
+tempList <- c()
+for (j in seq_along(dfList)){
+   tempList <- append(tempList, data.table::as.data.table(c(dfList[[j]][3], dfList[[j]][1], dfList[[j]][2])))
+}
+assign(paste(name, "RandomPoints", sep = ""), rbindlist(tempList))
+```
+
+<div id="problem_1-hint">
+    Hint: We have loaded the data.table and dplyr libraries, if either of those might be helpful. It *is* possible to fix this code without either package, though.
+</div>
+
+## Problem 2
+
+### Sorting a dataset by multiple columns
+I want to sort a data.frame by multiple columns. For example, with the data.frame below I would like to sort by column z (descending) then by column b (ascending). How do I do this?
+
+```{r problem_2, exercise=TRUE, exercise.eval=TRUE, exercise.lines = 10}
+dd <- data.frame(b = factor(c("Hi", "Med", "Hi", "Low"), 
+      levels = c("Low", "Med", "Hi"), ordered = TRUE),
+      x = c("A", "D", "A", "C"), y = c(8, 3, 9, 9),
+      z = c(1, 1, 1, 2))
+dd
+```
+
+<div id="problem_2-hint">
+    Hint: We have loaded the dplyr and data.table libraries, but as with problem 1, it is possible to solve this without either package (in this case, using order()).
+</div>
+
+Aaaaand if you need some additional help...[here's a dplyr review from last spring](https://globedatasci-ku.github.io/data_wrangling/datawrangling_tidyverse.html#1)
+
+## Problem 3
+
+### A loop inside a function
+
+I am trying to get more familiar with function writing and ran into a problem that I've been trying to solve for 3 hours now. Here's the code:
+
+```{r problem_3_chunk_1, eval=T, echo = T}
+test <- function (x) {
+    for (i in x)
+            print(x[i])
+}
+```
+
+When I assign a few variables:
+
+```{r problem_3_chunk_2, eval=T, echo = T}
+a <- c(0,1)
+b <- c(1,2)
+```
+
+b works fine, but 'a' gets all screwed up:
+
+```{r problem_3_chunk_3, eval=T, echo = T, hold = F}
+test(b)
+
+test(a)
+```
+
+I figured that something is wrong with the way R is handling the ones and zeros in 'a'. but when I iterate the function at the command line, there are no issues.
+
+```{r problem_3_chunk_4, eval=T, echo = T, hold = F}
+print(a[1])
+
+print(a[2])
+```
+
+How do I fix this?
+
+```{r problem_3, exercise=TRUE, exercise.eval=TRUE, exercise.lines = 15}
+test <- function (x) {
+    for (i in x)
+            print(x[i])
+}
+
+a <- c(0,1)
+b <- c(1,2)
+
+test(a)
+
+test(b)
+
+```
+
+<div id="problem_3-hint">
+    Hint: Keep *indices* and *values* straight.
+</div>
