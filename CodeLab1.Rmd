@@ -1,0 +1,141 @@
+---
+title: "Code Lab 1 Intro"
+author: "Hannah L. Owens"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css:
+    - default
+    - custom-fonts.css
+    nature:
+      highlightStyle: github
+      highlightLines: yes
+      ratio: '16:9'
+      beforeInit: https://platform.twitter.com/widgets.js
+---
+
+# Plan for today
+
+* Brief introduction to problem solving in R
+* Introduction to tutorial interface
+* Interactive problem-solving exercises!
+
+---
+
+# Problem solving in R
+![](https://img.etimg.com/thumb/msid-76642954,width-650,imgsize-330838,,resizemode-4,quality-100/although-a-separate-court-case-established-early-holmes-novels-are-in-the-public-domain-the-lawsuit-alleges-the-detective-only-developed-feelings-in-the-last-10-books-.jpg)
+
+---
+
+# First, some words of encouragement
+
+### "I can break code all day regardless of the data source." - Hannah Owens
+
+### "Programming allows you to think about thinking, and while debugging you learn about learning." - Nicholas Negroponte
+
+### "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements." - Brian Kerninghan
+
+---
+
+# Some tips on troubleshooting
+
+<div align="center">
+<img src="https://testzius.files.wordpress.com/2015/09/bug-in-code.jpg" width=800 height=600>
+</div>
+
+---
+
+# Some tips on troubleshooting
+
+* What is the error?
+  * Pay attention to line marks
+  * Read error messages
+    * When error message makes no sense, Google it!
+* Ask for help
+  * People you know
+  * StackOverflow, GitHub, Reddit, Twitter, etc.
+* Walk away (but come back)
+
+---
+
+# Some tips on troubleshooting: Print statements
+* Where is the error?
+* Why is there an error?
+
+---
+
+# Some tips on troubleshooting: Print statements
+
+.pull-left[
+```{r print_statements, eval = F}
+testFunction <* function(y){
+  if (y %% 2==0){
+    return("notOdd")
+  } else return()
+}
+
+x <* c()
+for(i in 1:3){
+  print(i)
+  print("executing function")
+  newI <* testFunction(i)
+  print(paste("newI: ", newI))
+  print("appending new i")
+  x <* c(x,newI)
+  print(x)
+}
+```
+]
+
+.pull-right[
+```{r print_statements_o, echo=FALSE}
+testFunction <- function(y){
+  if (y %% 2==0){
+    return("notOdd")
+  } else return()
+}
+
+x <- c()
+for(i in 1:3){
+  print(i)
+  print("executing function")
+  newI <- testFunction(i)
+  print(paste("newI: ", newI))
+  print("appending new i")
+  x <- c(x,newI)
+  print(x)
+}
+```
+]
+
+---
+
+# Introduction to tutorial interface
+
+---
+
+# Introduction to tutorial interface
+* You will get a link to an R tutorial.
+* You will be split into breakout rooms.
+* As a group, you will work to solve each problem.
+* In between problems, we will regroup to discuss.
+
+---
+# Introduction to tutorial interface
+
+.pull-left[
+* A tutorial is a special kind of interactive R interface, powered by Shiny.
+* Shiny is a framework for building web applications using R code.
+* The app is published on the shiny.io server
+  * You don't even need to have a functioning version of R set up on your machine!
+]
+
+.pull-right[
+<img src="https://www.libraries.rutgers.edu/sites/default/files/styles/resize_to_300px_width/public/events/2019/09/shiny.png?itok=Nr_Xx5T6" width=300>
+]
+
+---
+
+# A brief tour of the interface
+Tutorial app location: https://hannah-owens.shinyapps.io/CodeLab_1/
